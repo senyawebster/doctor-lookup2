@@ -3,7 +3,7 @@ var apiKey = require('./../.env').apiKey;
 export class Lookup {
 
   // A user should be able to enter a medical issue to receive a list of doctors in the Portland area that fit the search query.
-  FindDocByIssue(issue) {
+  findDocByIssue(issue) {
     let promise = new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
       let url = `https://api.betterdoctor.com/2016-03-01/doctors?query=${issue}&location=or-portland&user_location=45.523%2C%20122.6765&skip=0&limit=20&user_key=${apiKey}`;
@@ -31,7 +31,7 @@ export class Lookup {
   }
 
   // A user should be able to to enter a name to receive a list of doctors in the Portland area that fit the search query.
-  FindDocByName(name) {
+  findDocByName(firstName, lastName) {
     let promise = new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
       let url = `https://api.betterdoctor.com/2016-03-01/doctors?first_name=${first}&last_name=${last}&location=or-portland&user_location=45.523%2C%20122.6765&skip=0&limit=20&user_key=${apiKey}`;
@@ -56,7 +56,6 @@ export class Lookup {
     }, (error) => {
       $('.showErrors').html(`There was an error processing your request: ${error.message}`);
     });
-
   }
 
 
