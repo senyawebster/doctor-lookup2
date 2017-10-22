@@ -1,14 +1,37 @@
+var apiKey = require('./../.env').apiKey;
+
 export class Lookup {
 
-  FindDocByIssue() {
+  FindDocByIssue(issue) {
+    let promise = new Promise((resolve, reject) => {
+      let request = new XMLHttpRequest();
+      let url = `https://api.betterdoctor.com/2016-03-01/doctors?query=${issue}&location=or-portland&user_location=45.523%2C%20122.6765&skip=0&limit=10&user_key=${apiKey}`;
+      request.onload = () => {
+        if (request.status === 200) {
+          resolve(request.response);
+        } else {
+          reject(Error(request.statusText));
+        }
+      };
+      request.open("GET", url, true);
+      request.send();
+    });
 
+    promise.then((response) => {
+      let parsed_res = JSON.parse(response);
 
-
+      parsed_res.data.forEach((doctor) => {
+        // need to figure out how to target data several levels into the JSONresponse
+        $('#returnDoctor').append(`<tr><td>${doctor.first_name }</td></tr>`)
+      });
+    }, (error) => {
+      $('.showErrors').html(`There was an error processing your request: ${error.message}`);
+    });
 
     // Return : Doctor first name, last name, address, phone number, website, accepting new patients (y/n)
   }
 
-  FindDocByName() {
+  FindDocByName(name) {
 
 
     // Return : Doctor first name, last name, address, phone number, website, accepting new patients (y/n)
@@ -17,7 +40,9 @@ export class Lookup {
 
 }
 
+https://api.betterdoctor.com/2016-03-01/doctors?query=cough&location=or-portland&user_location=45.523%2C%20122.6765&skip=0&limit=10&user_key=c8dc771bf0039d7e6a76c387a51b670a
 
+https://api.betterdoctor.com/2016-03-01/doctors?query=strep%20throat&location=or-portland&user_location=45.523%2C%20122.6765&skip=0&limit=10&user_key=c8dc771bf0039d7e6a76c387a51b670a
 
 
 
