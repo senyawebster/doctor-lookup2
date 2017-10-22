@@ -11,6 +11,57 @@
   <body>
     <div class="container">
 
+      <div class="jumbotron justify-content-center mt-3">
+        <h2>Welcome to the Doctor Lookup Site!</h2>
+        <h4>Enter a doctor's name or an issue/speciality for a list of doctors that match that criteria</h4>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col col-md-5 justify-content-center mt-3">
+          <div class="card">
+            <div class="card-body">
+              <form id="findDocsByIssue">
+                <div class="form-group">
+                  <input type="text" name="docIssue" placeholder="Issue (ie. broken wrist)" id="docIssue" class="form-control">
+                </div>
+                <button class="btn btn-primary btn-block" type="button" id="issueClick" name="button">Search by Issue</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col col-md-5 justify-content-center mt-3">
+          <div class="card">
+            <div class="card-body">
+              <form id="findDocsByName">
+                <div class="form-group">
+                  <input type="text" name="docName" placeholder="Doctor's Name" id="docName" class="form-control">
+                </div>
+                <button class="btn btn-primary btn-block" type="button" id="nameClick" name="button">Search by Name</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="results" class="row justify-content-center mt-3">
+        <div class="col-12">
+          <table class="table table-hover">
+            <thead class="thead-inverse">
+              <tr>
+                <th><b>Name</b> (Last, First)</th>
+                <th><b>Address</b></th>
+                <th><b>Phone</b></th> <!-- Figure out how to include SPECIFICALLY the phone not fax -->
+                <th><b>Website</b></th>
+                <th><b>Accepting New Patients</b> (true/false)</th>
+              </tr>
+            </thead>
+            <tbody id="returnDoctor" >
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </body>
 </html>
