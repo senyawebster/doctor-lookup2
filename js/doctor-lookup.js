@@ -1,4 +1,4 @@
-var apiKey = require('./../.env').apiKey;
+const apiKey = require('./../.env').apiKey;
 
 export class Lookup {
 
@@ -22,8 +22,9 @@ export class Lookup {
       let parsed_res_issue = JSON.parse(response);
 
       parsed_res_issue.data.forEach((doctor) => {
-        // need to figure out how to target data several levels into the JSONresponse
-        $('#returnDoctorsByName').append(`<tr><td>${doctor.profile.last_name}, ${doctor.profile.first_name}</td><td>${doctor.practices[0].visit_address.street}, ${doctor.practices[0].visit_address.street2}<br>${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}</td><td>${doctor.practices[0].phones[0].number}</td><td><a href="${doctor.practices[0].website}">${doctor.practices[0].website}</a></td><td>${doctor.practices[0].accepts_new_patients}</td></tr>`);
+
+        // $('#returnDoctorsByIssue').append(`<tr><td>${doctor.profile.last_name}, ${doctor.profile.first_name}</td><td>${doctor.practices[0].visit_address.street}, ${doctor.practices[0].visit_address.street2}<br>${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}</td><td>${doctor.practices[0].phones[0].number}</td><td><a href="${doctor.practices[0].website}">${doctor.practices[0].website}</a></td><td>${doctor.practices[0].accepts_new_patients}</td></tr>`);
+        $('#returnDoctorsByIssue').append(<tr><td>"sanity test"</td><td>"sanity test"</td><td>"sanity test"</td><td>"sanity test"</td><td>"sanity test"</td></tr>);
       });
     }, (error) => {
       $('.showErrors').html(`There was an error processing your request: ${error.message}`);
@@ -34,7 +35,7 @@ export class Lookup {
   findDocByName(firstName, lastName) {
     let promise = new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
-      let url = `https://api.betterdoctor.com/2016-03-01/doctors?first_name=${first}&last_name=${last}&location=or-portland&user_location=45.523%2C%20122.6765&skip=0&limit=20&user_key=${apiKey}`;
+      let url = `https://api.betterdoctor.com/2016-03-01/doctors?first_name=${first}&last_name=${last}&location=or-portland&user_location=45.523%2C%20122.6765&skip=0&limit=20&user_key=c8dc771bf0039d7e6a76c387a51b670a`;
       request.onload = () => {
         if (request.status === 200) {
           resolve(request.response);
@@ -48,9 +49,9 @@ export class Lookup {
 
     promise.then((response) => {
       let parsed_res_name = JSON.parse(response);
-
+      debugger;
       parsed_res_name.data.forEach((doctor) => {
-        // need to figure out how to target data several levels into the JSONresponse
+
         $('#returnDoctorsByName').append(`<tr><td>${doctor.profile.last_name}, ${doctor.profile.first_name}</td><td>${doctor.practices[0].visit_address.street}, ${doctor.practices[0].visit_address.street2}<br>${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}</td><td>${doctor.practices[0].phones[0].number}</td><td><a href="${doctor.practices[0].website}">${doctor.practices[0].website}</a></td><td>${doctor.practices[0].accepts_new_patients}</td></tr>`);
       });
     }, (error) => {

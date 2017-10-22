@@ -36,13 +36,15 @@ _A user should be able to enter 1) the name of a doctor they'd like to find usin
 
 2. _`$ cd doctor-lookup/`_
 
-3. _`$ npm install`_
+3. _Add a .env file to the top level of the project directory and add your unique user key from https://developer.betterdoctor.com/ . It should look like this exports.apiKey = 'your_user_key_here'_
 
-4. _`$ bower install`_
+4. _`$ npm install`_
 
-5. _`$ gulp build`_
+5. _`$ bower install`_
 
-6. _`$ gulp serve`_
+6. _`$ gulp build`_
+
+7. _`$ gulp serve`_
 
 ## Support and contact details
 
