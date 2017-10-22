@@ -1,5 +1,9 @@
 
 
-#results {
+#nameResults {
+  display: none;
+}
+
+#issueResults {
   display: none;
 }

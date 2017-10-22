@@ -11,9 +11,13 @@
   <body>
     <div class="container">
 
-      <div class="jumbotron justify-content-center mt-3">
-        <h2>Welcome to the Doctor Lookup Site!</h2>
-        <h4>Enter a doctor's name or an issue/speciality for a list of doctors that match that criteria</h4>
+      <div class="jumbotron mt-3">
+        <div class="row justify-content-center">
+          <h1><b>Welcome to the Doctor Lookup Site!</b></h1>
+          <br><br><br>
+          <h4>Enter a doctor's name or an issue/speciality for </h4>
+          <h4>a list of doctors that match that criteria in the Portland are!</h4>
+        </div>
       </div>
 
       <div class="row justify-content-center">
@@ -21,8 +25,13 @@
           <div class="card">
             <div class="card-body">
               <form id="findDocsByIssue">
+
+                <div class="row justify-content-center">
+                  <h4>Your Issue</h4>
+                </div>
+
                 <div class="form-group">
-                  <input type="text" name="docIssue" placeholder="Issue (ie. broken wrist)" id="docIssue" class="form-control">
+                  <input type="text" name="issue" placeholder="(ie. broken wrist)" id="issue" class="form-control">
                 </div>
                 <button class="btn btn-primary btn-block" type="button" id="issueClick" name="button">Search by Issue</button>
               </form>
@@ -33,9 +42,24 @@
           <div class="card">
             <div class="card-body">
               <form id="findDocsByName">
-                <div class="form-group">
-                  <input type="text" name="docName" placeholder="Doctor's Name" id="docName" class="form-control">
+
+                <div class="row justify-content-center">
+                  <h4>Doctor's Name</h4>
                 </div>
+
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <input type="text" name="firstName" placeholder="First Name" id="firstName" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <input type="text" name="lastName" placeholder="Last Name" id="lastName" class="form-control">
+                    </div>
+                  </div>
+                </div>
+
                 <button class="btn btn-primary btn-block" type="button" id="nameClick" name="button">Search by Name</button>
               </form>
             </div>
@@ -43,7 +67,7 @@
         </div>
       </div>
 
-      <div id="results" class="row justify-content-center mt-3">
+      <div id="nameResults" class="row justify-content-center mt-3">
         <div class="col-12">
           <table class="table table-hover">
             <thead class="thead-inverse">
@@ -55,7 +79,26 @@
                 <th><b>Accepting New Patients</b> (true/false)</th>
               </tr>
             </thead>
-            <tbody id="returnDoctor" >
+            <tbody id="returnDoctorsByName" >
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="issueResults" class="row justify-content-center mt-3">
+        <div class="col-12">
+          <table class="table table-hover">
+            <thead class="thead-inverse">
+              <tr>
+                <th><b>Name</b> (Last, First)</th>
+                <th><b>Address</b></th>
+                <th><b>Phone</b></th> <!-- Figure out how to include SPECIFICALLY the phone not fax -->
+                <th><b>Website</b></th>
+                <th><b>Accepting New Patients</b> (true/false)</th>
+              </tr>
+            </thead>
+            <tbody id="returnDoctorsByIssue" >
 
             </tbody>
           </table>
