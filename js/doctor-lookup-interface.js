@@ -2,10 +2,10 @@ const apiKey = require('./../.env').apiKey;
 
 import { Lookup } from './../js/doctor-lookup.js'
 
-$(document).ready(() => {
+$(document).ready(function() {
   let doctors = new Lookup();
 
-  $('#issueClick').click(() => {
+  $('#issueClick').click(function() {
     let issue = $('#issue').val();
 
     $('#issueResults').show();
@@ -13,10 +13,9 @@ $(document).ready(() => {
     $('#searchRow').hide();
 
     doctors.findDocByIssue(issue);
-    // console.log(doctors.findDocByIssue(issue));
   });
 
-  $('#nameClick').click(() => {
+  $('#nameClick').click(function() {
     let firstName = $('#firstName').val();
     let lastName = $('#lastName').val();
 

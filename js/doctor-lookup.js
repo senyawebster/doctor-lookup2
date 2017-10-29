@@ -4,10 +4,10 @@ export class Lookup {
 
   // A user should be able to enter a medical issue to receive a list of doctors in the Portland area that fit the search query.
   findDocByIssue(issue) {
-    let promise = new Promise((resolve, reject) => {
+    let promise = new Promise(function(resolve, reject) {
       let request = new XMLHttpRequest();
       let url = `https://api.betterdoctor.com/2016-03-01/doctors?query=${issue}&location=or-portland&user_location=45.523%2C%20122.6765&skip=0&limit=20&user_key=${apiKey}`;
-      request.onload = () => {
+      request.onload = function() {
         if (request.status === 200) {
           resolve(request.response);
         } else {
@@ -18,25 +18,29 @@ export class Lookup {
       request.send();
     });
 
-    promise.then((response) => {
+    promise.then(function(response) {
       let parsed_res_issue = JSON.parse(response);
 
-      parsed_res_issue.data.forEach((doctor) => {
+      if (parsed_res_issue.data.length === 0) {
+        $('#returnDoctorsByIssue').append(`<tr><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>`)
+      } else {
+        parsed_res_issue.data.forEach(function(doctor) {
 
-        // $('#returnDoctorsByIssue').append(`<tr><td>${doctor.profile.last_name}, ${doctor.profile.first_name}</td><td>${doctor.practices[0].visit_address.street}, ${doctor.practices[0].visit_address.street2}<br>${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}</td><td>${doctor.practices[0].phones[0].number}</td><td><a href="${doctor.practices[0].website}">${doctor.practices[0].website}</a></td><td>${doctor.practices[0].accepts_new_patients}</td></tr>`);
-        $('#returnDoctorsByIssue').append(<tr><td>"sanity test"</td><td>"sanity test"</td><td>"sanity test"</td><td>"sanity test"</td><td>"sanity test"</td></tr>);
-      });
-    }, (error) => {
+          $('#returnDoctorsByIssue').append(`<tr><td>${doctor.profile.last_name}, ${doctor.profile.first_name}</td><td>${doctor.practices[0].visit_address.street}, ${doctor.practices[0].visit_address.street2}<br>${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}</td><td>${doctor.practices[0].phones[0].number}</td><td><a href="${doctor.practices[0].website}">${doctor.practices[0].website}</a></td><td>${doctor.practices[0].accepts_new_patients}</td></tr>`);
+          // $('#returnDoctorsByIssue').append(<tr><td>"sanity test"</td><td>"sanity test"</td><td>"sanity test"</td><td>"sanity test"</td><td>"sanity test"</td></tr>);
+        });
+      }
+    }, function(error) {
       $('.showErrors').html(`There was an error processing your request: ${error.message}`);
     });
   }
 
   // A user should be able to to enter a name to receive a list of doctors in the Portland area that fit the search query.
   findDocByName(firstName, lastName) {
-    let promise = new Promise((resolve, reject) => {
+    let promise = new Promise(function(resolve, reject) {
       let request = new XMLHttpRequest();
-      let url = `https://api.betterdoctor.com/2016-03-01/doctors?first_name=${first}&last_name=${last}&location=or-portland&user_location=45.523%2C%20122.6765&skip=0&limit=20&user_key=c8dc771bf0039d7e6a76c387a51b670a`;
-      request.onload = () => {
+      let url = `https://api.betterdoctor.com/2016-03-01/doctors?first_name=${firstName}&last_name=${lastName}&location=or-portland&user_location=45.523%2C%20122.6765&skip=0&limit=20&user_key=${apiKey}`;
+      request.onload = function() {
         if (request.status === 200) {
           resolve(request.response);
         } else {
@@ -47,14 +51,18 @@ export class Lookup {
       request.send();
     });
 
-    promise.then((response) => {
+    promise.then(function(response) {
       let parsed_res_name = JSON.parse(response);
-      debugger;
-      parsed_res_name.data.forEach((doctor) => {
 
-        $('#returnDoctorsByName').append(`<tr><td>${doctor.profile.last_name}, ${doctor.profile.first_name}</td><td>${doctor.practices[0].visit_address.street}, ${doctor.practices[0].visit_address.street2}<br>${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}</td><td>${doctor.practices[0].phones[0].number}</td><td><a href="${doctor.practices[0].website}">${doctor.practices[0].website}</a></td><td>${doctor.practices[0].accepts_new_patients}</td></tr>`);
-      });
-    }, (error) => {
+      if(parsed_res_name.data.length === 0) {
+        $('#returnDoctorsByName').append(`<tr><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>`)
+      } else {
+        parsed_res_name.data.forEach(function(doctor) {
+
+          $('#returnDoctorsByName').append(`<tr><td>${doctor.profile.last_name}, ${doctor.profile.first_name}</td><td>${doctor.practices[0].visit_address.street}, ${doctor.practices[0].visit_address.street2}<br>${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}</td><td>${doctor.practices[0].phones[0].number}</td><td><a href="${doctor.practices[0].website}">${doctor.practices[0].website}</a></td><td>${doctor.practices[0].accepts_new_patients}</td></tr>`);
+        });
+      }
+    }, function(error) {
       $('.showErrors').html(`There was an error processing your request: ${error.message}`);
     });
   }
